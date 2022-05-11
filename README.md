@@ -1,8 +1,10 @@
-# User Story
+# READ ME
+
+## User Story
 
 Will Enter Soon
 
-MVP for p_Zero
+## MVP for p_Zero
 
 1. Login -- Was removed from requirements
 2. Register Account
@@ -12,7 +14,7 @@ MVP for p_Zero
 6. Make modpacks
 7. Delete Account
 
-Minimum Features
+## Minimum Features
 
 - Use of custom data structures (do not use java.util Collection types!).
 - Basic validation of user input (e.g. no registration for classes outside of registration window, no negative deposits/withdrawals, no overdrafting, etc.).
@@ -26,7 +28,7 @@ Minimum Features
 - Generation of basic design documents (e.g. relational diagram, class diagram, flows, etc.).
 - A basic single html/css/js page for logging in.
 
-Tech Stack
+## Tech Stack
 
 - Java 8.
 - Apache Maven.
