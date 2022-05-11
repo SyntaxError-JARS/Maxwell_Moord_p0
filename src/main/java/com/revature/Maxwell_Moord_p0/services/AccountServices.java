@@ -47,6 +47,10 @@ public class AccountServices {
         return true;
     }
 
+    public Account readAll(){
+        return account;
+    }
+
 
 
 }
