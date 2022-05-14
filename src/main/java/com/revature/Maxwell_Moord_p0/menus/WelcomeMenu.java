@@ -26,6 +26,7 @@ public class WelcomeMenu extends Menu {
             case "2":
                 System.out.println("User has selected create account...");
                 CreateAccountMenu createAccountMenu = new CreateAccountMenu(kb);
+                //AppState.shutdown();
                 try {
                     createAccountMenu.render();
                 } catch (Exception e) {

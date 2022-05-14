@@ -11,6 +11,7 @@ public class AccountDao {
 
 
     public static Account create(Account newUser) {
+
         System.out.println("Here is the newUser as it enters our DAO layer: "+ newUser); // What happens here? Java knows to invoke the toString() method when printing the object to the terminal
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection();) {
@@ -68,23 +69,42 @@ public class AccountDao {
         return (accounts);
     }
 
-    public void pullUsernames(Account newUser) {
-        AccountServices accountServices = new AccountServices();
-        String username = null;
-        try (Connection conn = ConnectionFactory.getInstance().getConnection();) {
+    public Boolean pullUsernames(String username) {
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "select username from usr_data where username = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
 
-            String sql = "select * from usr_data";
-            Statement s = conn.createStatement();
+            ResultSet rs = ps.executeQuery();
 
-            ResultSet rs = s.executeQuery(sql);
-            while (rs.next()) {
-
-                username = rs.getString("username");
-                accountServices.verifyNewUsername(username, newUser);
-
+            if(!rs.isBeforeFirst()){
+                return false;
             }
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
+        }
+
+    }
+
+
+    //Just pass newUser and select where that email exists if it does
+    public Boolean pullEmails(String email) {
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "select email from usr_data where email = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(!rs.isBeforeFirst()){
+                return false;
+            }
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
 
     }

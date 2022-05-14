@@ -14,7 +14,7 @@ public class AppState {
     }
 
     public void startup(){
-
+        System.out.println("Starting Up");
         while(isRunning){
             welcomeMenu.render();
         }
