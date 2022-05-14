@@ -1,5 +1,12 @@
-com\revature\Maxwell_Moord_p0\daos\AccountDao.class
-com\revature\Maxwell_Moord_p0\services\AccountServices.class
+com\revature\Maxwell_Moord_p0\web\servlets\AuthServlet.class
+com\revature\Maxwell_Moord_p0\web\util\ContextLoaderListener.class
+com\revature\Maxwell_Moord_p0\web\dto\LoginCreds.class
+com\revature\Maxwell_Moord_p0\exceptions\ResourcePersistanceException.class
 com\revature\Maxwell_Moord_p0\util\ConnectionFactory.class
 com\revature\Maxwell_Moord_p0\models\Account.class
+com\revature\Maxwell_Moord_p0\exceptions\InvalidRequestException.class
+com\revature\Maxwell_Moord_p0\daos\AccountDao.class
+com\revature\Maxwell_Moord_p0\exceptions\AuthenticationException.class
+com\revature\Maxwell_Moord_p0\web\servlets\AccountServlet.class
+com\revature\Maxwell_Moord_p0\services\AccountServices.class
 com\revature\Maxwell_Moord_p0\web\servlets\TestServlet.class
