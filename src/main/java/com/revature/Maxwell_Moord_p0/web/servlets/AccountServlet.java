@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 // @WebServlet("/accounts")
 public class AccountServlet extends HttpServlet {
@@ -25,7 +26,7 @@ public class AccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Account[] accounts = accountServices.readAll();
+        ArrayList<Account> accounts = accountServices.readAll();
 
         String payload = mapper.writeValueAsString(accounts);
 

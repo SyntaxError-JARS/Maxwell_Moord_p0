@@ -5,13 +5,17 @@ import com.revature.Maxwell_Moord_p0.daos.AccountDao;
 import com.revature.Maxwell_Moord_p0.models.Account;
 
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 
 public class AccountServices {
 
     private AccountDao accountDao = new AccountDao();
     private Account account = new Account();
 
-    //Validating that user has inputted a value that works
+
+
     public boolean validateUserInput(Account newUser) {
         System.out.println("Validating User: " + newUser);
         if(newUser == null) return false;
@@ -19,40 +23,35 @@ public class AccountServices {
         if(newUser.getUsername() == null || newUser.getUsername().trim().equals("")) return false;
         if(newUser.getPassword() == null || newUser.getPassword().trim().equals("")) return false;
         System.out.println("The User Has been Validated");
-        accountDao.pullUsernames(newUser);
-        //AccountDao.create(newUser);
-        return true;
+        if (verifyNewEmail(newUser.getEmail()) == true){
+            System.out.println("This email has already been taken, please try again");
+            return false;
+        } else if (verifyNewUsername(newUser.getUsername()) == true) {
+            System.out.println("This username has already been taken, please try again");
+            return false;
+        }else{
+            createNewUser(newUser);
+            return true;
+        }
     }
 
-    //Verifying that the Username hasn't already been taken
-    public boolean verifyNewUsername(String username, Account newUser){
-        //System.out.println(username);
-        //System.out.println(newUser.getUsername());
-
-        if(username.equals(newUser.getUsername())){
-            System.out.println("This Username has already been taken, please try again");
-            return false;
-        }
-
-        return true;
+    public boolean verifyNewUsername(String username){
+        return accountDao.pullUsernames(username);
     }
 
-    //Verifying that the email hasn't been taken TODO: Make this work
-    public boolean verifyNewEmail(String username, Account newUser){
-        //System.out.println(username);
-        //6System.out.println(newUser.getUsername());
+    public boolean verifyNewEmail(String email){
+        return accountDao.pullEmails(email);
+    }
 
-        if(username.equals(newUser.getUsername())){
-            System.out.println("This Username has already been taken, please try again");
-            return false;
-        }
-
-        return true;
+    public void createNewUser(Account newUser){
+        System.out.println("New user being created");
+        AccountDao.create(newUser);
     }
 
     //Outputs all the accounts TODO: Not hooked up yet also need to convert to ArrayList
-    public Account[] readAll(){
-        Account[] accounts = new Account[10];
+    public ArrayList<Account> readAll(){
+        ArrayList <Account> accounts = accountDao.findUsers();
+
         return accounts;
     }
 
@@ -63,6 +62,8 @@ public class AccountServices {
         return account;
     }
 
-
-
 }
+
+
+
+

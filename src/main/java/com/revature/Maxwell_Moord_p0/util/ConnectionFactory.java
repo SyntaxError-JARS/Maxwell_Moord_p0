@@ -36,9 +36,7 @@ public class ConnectionFactory {
 
     public Connection getConnection() {
 
-        Connection conn = null;
-
-
+        Connection conn;
 
         try {
             conn = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("user"), prop.getProperty("password"));
