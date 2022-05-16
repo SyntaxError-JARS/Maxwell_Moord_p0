@@ -1,10 +1,13 @@
 package com.revature.Maxwell_Moord_p0.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Account {
 
 
     private String email;
     private String username;
+    @JsonIgnore
     private String password;
 
     public Account(String email, String username, String password){

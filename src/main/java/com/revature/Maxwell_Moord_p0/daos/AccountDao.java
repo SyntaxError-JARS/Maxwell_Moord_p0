@@ -1,5 +1,6 @@
 package com.revature.Maxwell_Moord_p0.daos;
 
+import com.revature.Maxwell_Moord_p0.exceptions.ResourcePersistanceException;
 import com.revature.Maxwell_Moord_p0.models.Account;
 import com.revature.Maxwell_Moord_p0.services.AccountServices;
 import com.revature.Maxwell_Moord_p0.util.ConnectionFactory;
@@ -69,6 +70,39 @@ public class AccountDao {
         return (accounts);
     }
 
+
+    public Account findById(String id) {
+
+        try(Connection conn = ConnectionFactory.getInstance().getConnection();){
+            System.out.println(id);
+            String sql = "select * from usr_data where id = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, Integer.parseInt(id)); // Wrapper class example
+
+            ResultSet rs = ps.executeQuery(); // remember dql, bc selects are the keywords
+
+            if(!rs.next()){
+                throw new ResourcePersistanceException("User was not found in the database, please check ID entered was correct.");
+            }
+
+            Account account = new Account();
+
+            account.setEmail(rs.getString("email"));
+            account.setUsername(rs.getString("username"));
+            account.setPassword(rs.getString("password"));
+
+            return account;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
     public Boolean pullUsernames(String username) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
             String sql = "select username from usr_data where username = ?";
@@ -106,6 +140,38 @@ public class AccountDao {
             e.printStackTrace();
             return false;
         }
+
+    }
+
+
+    public Account authenticateAccount(String email, String password){
+
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "select * from usr_data where email = ? and password = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(!rs.next()){
+                return null;
+            }
+
+            Account account = new Account();
+
+            account.setEmail(rs.getString("email"));
+            account.setUsername(rs.getString("username"));
+            account.setPassword(rs.getString("password"));
+
+
+            return account;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
 
     }
 

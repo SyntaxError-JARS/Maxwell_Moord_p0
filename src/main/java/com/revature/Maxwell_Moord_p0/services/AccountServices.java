@@ -2,6 +2,9 @@ package com.revature.Maxwell_Moord_p0.services;
 
 
 import com.revature.Maxwell_Moord_p0.daos.AccountDao;
+import com.revature.Maxwell_Moord_p0.exceptions.AuthenticationException;
+import com.revature.Maxwell_Moord_p0.exceptions.InvalidRequestException;
+import com.revature.Maxwell_Moord_p0.exceptions.ResourcePersistanceException;
 import com.revature.Maxwell_Moord_p0.models.Account;
 
 
@@ -48,16 +51,32 @@ public class AccountServices {
         AccountDao.create(newUser);
     }
 
-    //Outputs all the accounts TODO: Not hooked up yet also need to convert to ArrayList
+    //Outputs all the accounts
     public ArrayList<Account> readAll(){
         ArrayList <Account> accounts = accountDao.findUsers();
 
         return accounts;
     }
 
-    //Tells the authServlet that everything is good TODO: Make this function properly
+
+    public Account readById(String id) throws ResourcePersistanceException {
+        System.out.println(id);
+        Account account = accountDao.findById(id);
+        return account;
+    }
+
+    //Tells the authServlet that everything is good
     public Account authenticateAccount(String email, String password){
 
+        if(password == null || password.trim().equals("") || password == null || password.trim().equals("")) {
+            throw new InvalidRequestException("Either username or password is an invalid entry. Please try logging in again");
+        }
+
+        Account authenticatedAccount = accountDao.authenticateAccount(email, password);
+
+        if (authenticatedAccount == null){
+            throw new AuthenticationException("Unauthenticated user, information provided was not consistent with our database.");
+        }
 
         return account;
     }
