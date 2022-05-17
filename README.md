@@ -10,7 +10,7 @@ Will Enter Soon
 2. Register Account
 3. View all available mods
 4. Create/Update mod
-5. Filter mods by version number
+5. Filter mods by creator
 6. Make modpacks
 7. Delete Account
 
