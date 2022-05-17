@@ -7,7 +7,6 @@ public class Account {
 
     private String email;
     private String username;
-    @JsonIgnore
     private String password;
 
     public Account(String email, String username, String password){
@@ -41,7 +40,6 @@ public class Account {
         return "User Info{" +
                 "email='" + email + '\'' +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 

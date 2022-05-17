@@ -40,67 +40,7 @@ public class AccountDao {
         return newUser;
     }
 
-    public ArrayList<Account> findUsers(){
 
-        ArrayList<Account> accounts = new ArrayList<>();
-
-
-        try (Connection conn = ConnectionFactory.getInstance().getConnection();) {
-
-            String sql = "select * from usr_data";
-            Statement s = conn.createStatement();
-
-            ResultSet rs =s.executeQuery(sql);
-
-            while (rs.next()) {
-                Account account = new Account();
-
-                account.setEmail(rs.getString("email"));
-                account.setUsername(rs.getString("username"));
-                account.setPassword(rs.getString("password"));
-
-                accounts.add(account);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-
-        return (accounts);
-    }
-
-
-    public Account findById(String id) {
-
-        try(Connection conn = ConnectionFactory.getInstance().getConnection();){
-            System.out.println(id);
-            String sql = "select * from usr_data where id = ?";
-
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, Integer.parseInt(id)); // Wrapper class example
-
-            ResultSet rs = ps.executeQuery(); // remember dql, bc selects are the keywords
-
-            if(!rs.next()){
-                throw new ResourcePersistanceException("User was not found in the database, please check ID entered was correct.");
-            }
-
-            Account account = new Account();
-
-            account.setEmail(rs.getString("email"));
-            account.setUsername(rs.getString("username"));
-            account.setPassword(rs.getString("password"));
-
-            return account;
-
-        } catch (SQLException e){
-            e.printStackTrace();
-            return null;
-        }
-
-    }
 
 
     public Boolean pullUsernames(String username) {

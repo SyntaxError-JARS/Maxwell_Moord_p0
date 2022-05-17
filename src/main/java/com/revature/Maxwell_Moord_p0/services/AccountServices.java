@@ -18,20 +18,21 @@ public class AccountServices {
     private Account account = new Account();
 
 
-
-    public boolean validateUserInput(Account newUser) {
+        //TODO:Exceptions to yell at the user
+    public boolean validateUserInput(Account newUser) throws InvalidRequestException {
         System.out.println("Validating User: " + newUser);
         if(newUser == null) return false;
-        if(newUser.getEmail() == null || newUser.getEmail().trim().equals("")) return false;
-        if(newUser.getUsername() == null || newUser.getUsername().trim().equals("")) return false;
-        if(newUser.getPassword() == null || newUser.getPassword().trim().equals("")) return false;
+        if(newUser.getEmail() == null || newUser.getEmail().trim().equals("")){
+            throw new InvalidRequestException("Email cannot be blank");}
+        if(newUser.getUsername() == null || newUser.getUsername().trim().equals("")){
+            throw new InvalidRequestException("Username cannot be blank");}
+        if(newUser.getPassword() == null || newUser.getPassword().trim().equals("")){
+            throw new InvalidRequestException("Password cannot be blank");}
         System.out.println("The User Has been Validated");
         if (verifyNewEmail(newUser.getEmail()) == true){
-            System.out.println("This email has already been taken, please try again");
-            return false;
+            throw new InvalidRequestException("That email has already been taken");
         } else if (verifyNewUsername(newUser.getUsername()) == true) {
-            System.out.println("This username has already been taken, please try again");
-            return false;
+            throw new InvalidRequestException("That username has already been taken");
         }else{
             createNewUser(newUser);
             return true;
@@ -47,23 +48,11 @@ public class AccountServices {
     }
 
     public void createNewUser(Account newUser){
-        System.out.println("New user being created");
+        System.out.println("New user being created " + newUser);
+
         AccountDao.create(newUser);
     }
 
-    //Outputs all the accounts
-    public ArrayList<Account> readAll(){
-        ArrayList <Account> accounts = accountDao.findUsers();
-
-        return accounts;
-    }
-
-
-    public Account readById(String id) throws ResourcePersistanceException {
-        System.out.println(id);
-        Account account = accountDao.findById(id);
-        return account;
-    }
 
     //Tells the authServlet that everything is good
     public Account authenticateAccount(String email, String password){
