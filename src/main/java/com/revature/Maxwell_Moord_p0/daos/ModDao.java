@@ -69,6 +69,33 @@ public class ModDao {
         return (mods);
     }
 
+    public Mod findByModName(String modName) {
+
+        Mod mod = new Mod();
+
+        try (Connection conn = ConnectionFactory.getInstance().getConnection();) {
+            String sql = "select * from mod_data where mod_names = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, modName);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+
+                mod.setId(rs.getString("id"));
+                mod.setModName(rs.getString("mod_names"));
+                mod.setCreatorName(rs.getString("creator_name"));
+
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return (mod);
+    }
+
     public Boolean verifyCreatorExists(String creatorName) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()){
             String sql = "select creator_name from mod_data where creator_name = ?";
@@ -107,6 +134,25 @@ public class ModDao {
 
     }
 
+    public Boolean verifyModNameExists(String modName) {
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+            String sql = "select mod_names from mod_data where mod_names = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, modName);
+
+            ResultSet rs = ps.executeQuery();
+
+            if(!rs.isBeforeFirst()){
+                return false;
+            }
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
     public Mod updateMod(String modName, String creatorName, String id) {
         Mod mod = new Mod();
         try (Connection conn = ConnectionFactory.getInstance().getConnection();) {
@@ -129,6 +175,46 @@ public class ModDao {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, creatorName);
             ps.setInt(2, Integer.parseInt(id));
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+
+                mod.setId(rs.getString("id"));
+                mod.setModName(rs.getString("mod_names"));
+                mod.setCreatorName(rs.getString("creator_name"));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return (mod);
+    }
+
+    public Mod createMod(String modName, String creatorName) {
+        Mod mod = new Mod();
+        try (Connection conn = ConnectionFactory.getInstance().getConnection();) {
+            String sql = "insert into mod_data values (default, ?, ?);";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, modName);
+            ps.setString(2, creatorName);
+
+
+            int rs = ps.executeUpdate();
+            System.out.println(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        try (Connection conn = ConnectionFactory.getInstance().getConnection();) {
+            String sql = "select * from mod_data where creator_name = ? and mod_names = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, creatorName);
+            ps.setString(2, modName);
 
             ResultSet rs = ps.executeQuery();
 

@@ -33,11 +33,24 @@ public class ModServices {
         String id = modToUpdate.getId();
         if(!verifyCreatorName(creatorName)){throw new InvalidRequestException("This creator doesn't exist");}
         else if(!verifyId(id)){throw new InvalidRequestException("This id doesn't exist");}
+        else if(verifyModName(modName)){
+            throw new InvalidRequestException("This mod already exists " + modDao.findByModName(modName));
+        }
         else{return modDao.updateMod(modName,creatorName,id);}
 
     }
 
     public boolean verifyCreatorName(String creatorName){return modDao.verifyCreatorExists(creatorName);}
     public boolean verifyId(String id){return modDao.verifyIdExists(id);}
-    
+    public boolean verifyModName(String modName){return modDao.verifyModNameExists(modName);}
+
+    public Mod createMod(Mod modToUpdate){
+        String modName = modToUpdate.getModName();
+        String creatorName = modToUpdate.getCreatorName();
+        if(verifyModName(modName)){
+            throw new InvalidRequestException("This mod already exists " + modDao.findByModName(modName));
+        }
+        return modDao.createMod(modName,creatorName);
+    }
+
 }

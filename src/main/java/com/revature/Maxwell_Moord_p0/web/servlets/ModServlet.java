@@ -3,7 +3,6 @@ package com.revature.Maxwell_Moord_p0.web.servlets;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.Maxwell_Moord_p0.exceptions.InvalidRequestException;
 import com.revature.Maxwell_Moord_p0.exceptions.ResourcePersistanceException;
-import com.revature.Maxwell_Moord_p0.models.Account;
 import com.revature.Maxwell_Moord_p0.models.Mod;
 import com.revature.Maxwell_Moord_p0.services.ModServices;
 
@@ -70,14 +69,22 @@ public class ModServlet extends HttpServlet {
         if (checkAuth(req, resp)) {
 
             Mod modToUpdate = mapper.readValue(req.getInputStream(), Mod.class);
+            Mod mods = new Mod();
 
-            if(!modToUpdate.getCreatorName().equals(LoginCreds.getUsername())){
-                    throw new InvalidRequestException("You are not the creator of the mod, please log in as the creator to edit");
-            }else {
-                Mod mods = new Mod();
+            if (modToUpdate.getCreatorName().equals(LoginCreds.getUsername()) && modToUpdate.getId() == null) {
+                //creating
+                mods = modServices.createMod(modToUpdate);
+                String payload = mapper.writeValueAsString(mods);
+                resp.getWriter().write(payload);
+
+
+            }else if(modToUpdate.getCreatorName().equals(LoginCreds.getUsername()) && modToUpdate.getId()!=null){
+                //updating
                 mods = modServices.updateMod(modToUpdate);
                 String payload = mapper.writeValueAsString(mods);
                 resp.getWriter().write(payload);
+            }else if(!modToUpdate.getCreatorName().equals(LoginCreds.getUsername())) {
+                throw new InvalidRequestException("The creator name should match your username, please try again");
             }
 
 
