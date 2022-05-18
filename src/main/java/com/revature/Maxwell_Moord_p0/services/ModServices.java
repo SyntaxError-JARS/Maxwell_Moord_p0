@@ -29,8 +29,11 @@ public class ModServices {
 
     public Mod updateMod(Mod modToUpdate){
         String modName = modToUpdate.getModName();
+        System.out.println("modName: " + modName);
         String creatorName = modToUpdate.getCreatorName();
+        System.out.println("creatorName: "+ creatorName);
         String id = modToUpdate.getId();
+        System.out.println("Id: "+ id);
         if(!verifyCreatorName(creatorName)){throw new InvalidRequestException("This creator doesn't exist");}
         else if(!verifyId(id)){throw new InvalidRequestException("This id doesn't exist");}
         else if(verifyModName(modName)){

@@ -35,7 +35,7 @@ public class ContextLoaderListener implements ServletContextListener {
         context.addServlet("AuthServlet", authServlet).addMapping("/auth");
         context.addServlet("AccountServlet", accountServlet).addMapping("/accounts/*");
         context.addServlet("ModServlet", modServlet).addMapping("/mods/*");
-        context.addServlet("ModpackServlet", modServlet).addMapping("/modpacks/*");
+        context.addServlet("ModpackServlet", modpackServlet).addMapping("/modpacks/*");
 
     }
 

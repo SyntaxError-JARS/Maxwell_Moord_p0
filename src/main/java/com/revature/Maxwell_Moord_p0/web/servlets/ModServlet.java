@@ -67,7 +67,6 @@ public class ModServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         if (checkAuth(req, resp)) {
-
             Mod modToUpdate = mapper.readValue(req.getInputStream(), Mod.class);
             Mod mods = new Mod();
 
@@ -80,6 +79,7 @@ public class ModServlet extends HttpServlet {
 
             }else if(modToUpdate.getCreatorName().equals(LoginCreds.getUsername()) && modToUpdate.getId()!=null){
                 //updating
+                System.out.println("Updating");
                 mods = modServices.updateMod(modToUpdate);
                 String payload = mapper.writeValueAsString(mods);
                 resp.getWriter().write(payload);

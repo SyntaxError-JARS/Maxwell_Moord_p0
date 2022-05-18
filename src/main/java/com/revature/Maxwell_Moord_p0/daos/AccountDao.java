@@ -18,7 +18,7 @@ public class AccountDao {
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection();) {
 
-            String sql = "insert into usr_data (id, email, username, password) values (default,?, ?, ?)";
+            String sql = "insert into usr_data (email, username, password) values (?, ?, ?)";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 

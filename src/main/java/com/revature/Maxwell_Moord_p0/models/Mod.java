@@ -1,6 +1,5 @@
 package com.revature.Maxwell_Moord_p0.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Mod {
 

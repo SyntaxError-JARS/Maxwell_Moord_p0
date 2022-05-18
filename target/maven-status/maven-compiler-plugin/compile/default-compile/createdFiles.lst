@@ -6,12 +6,16 @@ com\revature\Maxwell_Moord_p0\models\Account.class
 com\revature\Maxwell_Moord_p0\exceptions\InvalidRequestException.class
 com\revature\Maxwell_Moord_p0\web\servlets\Authable.class
 com\revature\Maxwell_Moord_p0\daos\AccountDao.class
+com\revature\Maxwell_Moord_p0\daos\ModpackDao.class
 com\revature\Maxwell_Moord_p0\exceptions\AuthenticationException.class
 com\revature\Maxwell_Moord_p0\web\servlets\AccountServlet.class
 com\revature\Maxwell_Moord_p0\services\AccountServices.class
+com\revature\Maxwell_Moord_p0\web\servlets\ModpackServlet.class
 com\revature\Maxwell_Moord_p0\exceptions\ResourcePersistanceException.class
 com\revature\Maxwell_Moord_p0\util\ConnectionFactory.class
 com\revature\Maxwell_Moord_p0\models\Mod.class
+com\revature\Maxwell_Moord_p0\models\Modpack.class
 com\revature\Maxwell_Moord_p0\daos\ModDao.class
 com\revature\Maxwell_Moord_p0\services\ModServices.class
+com\revature\Maxwell_Moord_p0\services\ModpackServices.class
 com\revature\Maxwell_Moord_p0\web\servlets\TestServlet.class
