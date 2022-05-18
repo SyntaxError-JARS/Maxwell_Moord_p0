@@ -84,12 +84,12 @@ public class AccountDao {
     }
 
 
-    public Account authenticateAccount(String email, String password){
+    public Account authenticateAccount(String username, String password){
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()){
-            String sql = "select * from usr_data where email = ? and password = ?";
+            String sql = "select * from usr_data where username = ? and password = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, email);
+            ps.setString(1, username);
             ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();

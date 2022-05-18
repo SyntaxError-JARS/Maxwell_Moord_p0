@@ -7,13 +7,14 @@ public class Mod {
 
     private String modName;
     private String creatorName;
+    private String id;
 
 
-    public Mod(String modName, String creatorName){
+    public Mod(String modName, String creatorName, String id){
         super();
         this.modName = modName;
         this.creatorName = creatorName;
-
+        this.id = id;
     }
 
     public Mod(){
@@ -29,6 +30,10 @@ public class Mod {
 
     public void setCreatorName(String creatorName){this.creatorName = creatorName;}
 
+    public String getId(){return id;}
+
+    public void setId(String id){this.id = id;}
+
 
 
 
@@ -36,7 +41,8 @@ public class Mod {
     @Override // What this is?? Annotation - basically metadata
     public String toString() {
         return "Mod Info{" +
-                "Mod Name='" + modName + '\'' +
+                "Mod ID='" + id + '\'' +
+                ", Mod Name='" + modName + '\'' +
                 ", Creator Name='" + creatorName + '\'' +
                 '}';
     }

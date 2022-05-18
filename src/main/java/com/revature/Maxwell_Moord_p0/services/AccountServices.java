@@ -18,6 +18,7 @@ public class AccountServices {
     private Account account = new Account();
 
 
+
         //TODO:Exceptions to yell at the user
     public boolean validateUserInput(Account newUser) throws InvalidRequestException {
         System.out.println("Validating User: " + newUser);
@@ -55,13 +56,13 @@ public class AccountServices {
 
 
     //Tells the authServlet that everything is good
-    public Account authenticateAccount(String email, String password){
+    public Account authenticateAccount(String username, String password){
 
         if(password == null || password.trim().equals("") || password == null || password.trim().equals("")) {
             throw new InvalidRequestException("Either username or password is an invalid entry. Please try logging in again");
         }
 
-        Account authenticatedAccount = accountDao.authenticateAccount(email, password);
+        Account authenticatedAccount = accountDao.authenticateAccount(username, password);
 
         if (authenticatedAccount == null){
             throw new AuthenticationException("Unauthenticated user, information provided was not consistent with our database.");
@@ -69,6 +70,8 @@ public class AccountServices {
 
         return account;
     }
+
+
 
 }
 

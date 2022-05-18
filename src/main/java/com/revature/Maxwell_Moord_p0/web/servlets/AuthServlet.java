@@ -7,6 +7,7 @@ import com.revature.Maxwell_Moord_p0.exceptions.AuthenticationException;
 import com.revature.Maxwell_Moord_p0.exceptions.InvalidRequestException;
 import com.revature.Maxwell_Moord_p0.models.Account;
 import com.revature.Maxwell_Moord_p0.services.AccountServices;
+import com.revature.Maxwell_Moord_p0.services.ModServices;
 import com.revature.Maxwell_Moord_p0.web.dto.LoginCreds;
 
 import javax.servlet.http.HttpServlet;
@@ -34,10 +35,11 @@ public class AuthServlet extends HttpServlet {
 
             LoginCreds loginCreds = mapper.readValue(req.getInputStream(), LoginCreds.class);
 
-            Account authAccount = accountServices.authenticateAccount(loginCreds.getEmail(), loginCreds.getPassword());
+            Account authAccount = accountServices.authenticateAccount(loginCreds.getUsername(), loginCreds.getPassword());
 
             HttpSession httpSession = req.getSession(true);
             httpSession.setAttribute("authAccount", authAccount);
+
 
             resp.getWriter().write("You have successfully logged in!");
         } catch (AuthenticationException | InvalidRequestException e){

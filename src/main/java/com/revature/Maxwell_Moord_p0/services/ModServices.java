@@ -1,6 +1,7 @@
 package com.revature.Maxwell_Moord_p0.services;
 
 import com.revature.Maxwell_Moord_p0.daos.ModDao;
+import com.revature.Maxwell_Moord_p0.exceptions.InvalidRequestException;
 import com.revature.Maxwell_Moord_p0.exceptions.ResourcePersistanceException;
 import com.revature.Maxwell_Moord_p0.models.Mod;
 
@@ -24,5 +25,19 @@ public class ModServices {
         ArrayList<Mod> mod = modDao.findByCreatorName(creatorName);
         return mod;
     }
+
+
+    public Mod updateMod(Mod modToUpdate){
+        String modName = modToUpdate.getModName();
+        String creatorName = modToUpdate.getCreatorName();
+        String id = modToUpdate.getId();
+        if(!verifyCreatorName(creatorName)){throw new InvalidRequestException("This creator doesn't exist");}
+        else if(!verifyId(id)){throw new InvalidRequestException("This id doesn't exist");}
+        else{return modDao.updateMod(modName,creatorName,id);}
+
+    }
+
+    public boolean verifyCreatorName(String creatorName){return modDao.verifyCreatorExists(creatorName);}
+    public boolean verifyId(String id){return modDao.verifyIdExists(id);}
     
 }
