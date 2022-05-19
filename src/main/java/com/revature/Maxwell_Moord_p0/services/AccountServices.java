@@ -71,6 +71,18 @@ public class AccountServices {
         return account;
     }
 
+    public String deleteAccount(Account accountToDelete){
+        String email = accountToDelete.getEmail();
+        String username = accountToDelete.getUsername();
+        String password = accountToDelete.getPassword();
+        String deleteStatement = accountDao.deleteAccount(username);
+        if(accountDao.checkForModpacks(username)){
+            deleteStatement = (deleteStatement + accountDao.deleteModpacks(username));
+        }
+
+        return deleteStatement ;
+    }
+
 
 
 }

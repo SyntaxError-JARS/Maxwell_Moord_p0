@@ -3,7 +3,7 @@ package com.revature.Maxwell_Moord_p0.web.dto;
 public class LoginCreds {
 
     private static String username;
-    private String password;
+    private static String password;
 
     // JACKSON REQUIRES A NO ARG CONSTRUCTOR
 
@@ -15,7 +15,7 @@ public class LoginCreds {
         this.username = username;
     }
 
-    public String getPassword() {
+    public static String getPassword() {
         return password;
     }
 
