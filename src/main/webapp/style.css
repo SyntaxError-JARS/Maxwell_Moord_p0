@@ -1,0 +1,17 @@
+body{
+    text-align: center;
+    background-color: rgb(18, 18, 18);
+    color: white;
+    font-size: large;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.comic{
+    font-family: Comic Sans MS, Comic Sans, cursive;
+}
+.large{
+    font-size: x-large;
+}
+
+.title{
+    color: rgb(64,224,208)
+}

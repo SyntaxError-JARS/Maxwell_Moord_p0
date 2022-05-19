@@ -17,9 +17,14 @@ public class AccountServices {
     private AccountDao accountDao = new AccountDao();
     private Account account = new Account();
 
+    public AccountServices(AccountDao accountDao){this.accountDao = accountDao;}
+
+    public AccountServices() {
+
+    }
 
 
-        //TODO:Exceptions to yell at the user
+    //TODO:Exceptions to yell at the user
     public boolean validateUserInput(Account newUser) throws InvalidRequestException {
         System.out.println("Validating User: " + newUser);
         if(newUser == null) return false;
@@ -48,10 +53,10 @@ public class AccountServices {
         return accountDao.pullEmails(email);
     }
 
-    public void createNewUser(Account newUser){
+    public Account createNewUser(Account newUser){
         System.out.println("New user being created " + newUser);
 
-        AccountDao.create(newUser);
+        return AccountDao.create(newUser);
     }
 
 

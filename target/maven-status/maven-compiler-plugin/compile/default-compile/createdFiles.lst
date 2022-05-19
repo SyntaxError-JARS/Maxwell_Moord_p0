@@ -2,6 +2,7 @@ com\revature\Maxwell_Moord_p0\web\servlets\AuthServlet.class
 com\revature\Maxwell_Moord_p0\web\servlets\ModServlet.class
 com\revature\Maxwell_Moord_p0\web\util\ContextLoaderListener.class
 com\revature\Maxwell_Moord_p0\web\dto\LoginCreds.class
+com\revature\Maxwell_Moord_p0\util\logging\Logger.class
 com\revature\Maxwell_Moord_p0\models\Account.class
 com\revature\Maxwell_Moord_p0\exceptions\InvalidRequestException.class
 com\revature\Maxwell_Moord_p0\web\servlets\Authable.class
